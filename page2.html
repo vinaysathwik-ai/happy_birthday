@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Birthday Special Wish</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #ffd6f4;
+            text-align: center;
+            overflow: hidden;
+            padding-top: 40px;
+            color: #50207A;
+        }
+        h1 {
+            color: #FF48B9;
+            font-size: 40px;
+        }
+        p {
+            font-size: 22px;
+            margin-top: 10px;
+        }
+        .balloons img {
+            width: 120px;
+            position: absolute;
+            animation: float 6s infinite ease-in-out;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(100vh); }
+        }
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: pink;
+            animation: fall 4s linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10px) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+        .next-btn {
+            display: inline-block;
+            margin-top: 40px;
+            text-decoration: none;
+            padding: 12px 22px;
+            background: #50207A;
+            border-radius: 25px;
+            color: white;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎉 It's Your Birthday! 🎉</h1>
+    <p>Here is your special wish for you....</p>
+
+    <script>
+        for (let i = 0; i < 40; i++) {
+            let confetti = document.createElement("div");
+            confetti.className = "confetti";
+            confetti.style.left = Math.random() * 100 + "vw";
+            confetti.style.background = `hsl(${Math.random()*360}, 70%, 80%)`;
+            confetti.style.animationDelay = Math.random() * 3 + "s";
+            document.body.appendChild(confetti);
+        }
+    </script>
+
+    <a href="page3.html" class="next-btn">Next ➜</a>
+</body>
+</html>
