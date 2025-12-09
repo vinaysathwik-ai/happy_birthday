@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Birthday Countdown</title>
     <style>
-        /* CSS from the Original Timer (cleaner look) */
+        /* CSS for the Timer Display */
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #fce4ec; /* Light pink/rose background */
+            background-color: #fce4ec; 
             margin: 0;
             height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: #4a148c; /* Deep purple text */
+            color: #4a148c; 
             transition: background-color 0.5s;
         }
 
@@ -42,7 +42,7 @@
 
         .segment {
             padding: 15px;
-            background-color: #e91e63; /* Pink segments */
+            background-color: #e91e63;
             color: white;
             border-radius: 10px;
             min-width: 80px;
@@ -64,7 +64,7 @@
 
         #message {
             font-size: 2.5em;
-            color: #00c853; /* Green for success */
+            color: #00c853; 
             font-weight: 700;
             display: none;
             animation: bounce 0.6s infinite alternate;
@@ -99,8 +99,7 @@
         const countdownDisplay = document.getElementById('countdown-display');
         const redirectMessage = document.getElementById('message');
         
-        // **IMPORTANT:** The redirect target must be the file containing the 'Hello JYOTHSNA' message.
-        // Since we renamed it, we target 'wish_start.html'.
+        // This targets the first page of the wishes
         const REDIRECT_TARGET = 'wish_start.html'; 
 
         function updateCountdown() {
@@ -126,7 +125,7 @@
                     window.location.href = REDIRECT_TARGET; 
                 }, 3000);
             } else {
-                // Display the countdown in segmented format
+                // Display the countdown
                 countdownDisplay.innerHTML = `
                     <div class="segment">
                         <div class="segment-value">${days}</div>
