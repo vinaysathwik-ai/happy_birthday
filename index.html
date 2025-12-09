@@ -1,27 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hello JYOTHSNA</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Countdown</title>
     <style>
+        /* CSS from the Original Timer (cleaner look) */
         body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            background-color: #ffd6f4;
-            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            background-color: #fce4ec; /* Light pink/rose background */
+            margin: 0;
             height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: #50207A;
+            color: #4a148c; /* Deep purple text */
+            transition: background-color 0.5s;
         }
-        h1 {
-            font-size: 42px;
-            cursor: pointer;
+
+        .timer-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        .header {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        #countdown-display {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .segment {
+            padding: 15px;
+            background-color: #e91e63; /* Pink segments */
+            color: white;
+            border-radius: 10px;
+            min-width: 80px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .segment-value {
+            font-size: 2.5em;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .segment-label {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            margin-top: 5px;
+            font-weight: 300;
+        }
+
+        #message {
+            font-size: 2.5em;
+            color: #00c853; /* Green for success */
+            font-weight: 700;
+            display: none;
+            animation: bounce 0.6s infinite alternate;
+            padding: 20px;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
         }
     </style>
 </head>
-<body onclick="window.location.href='page2.html'">
-    <h1>Hello JYOTHSNA <br>Click Anywhere to Continue</h1>
+<body>
+    <div class="timer-container">
+        <div class="header">
+            The special day for JYOTHSNA is almost here!
+        </div>
+
+        <div id="countdown-display">
+            Loading...
+        </div>
+
+        <div id="message">
+            Time's Up! Redirecting to your wishes...
+        </div>
+    </div>
+
+    <script>
+        // Target Date: December 14, 2025, 12:00:00 AM
+        const targetDate = new Date("Dec 14, 2025 00:00:00").getTime();
+        
+        const countdownDisplay = document.getElementById('countdown-display');
+        const redirectMessage = document.getElementById('message');
+        
+        // **IMPORTANT:** The redirect target must be the file containing the 'Hello JYOTHSNA' message.
+        // Since we renamed it, we target 'wish_start.html'.
+        const REDIRECT_TARGET = 'wish_start.html'; 
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            // Time calculations
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            if (distance < 0) {
+                // Countdown Finished
+                clearInterval(countdownFunction);
+                document.body.style.backgroundColor = '#12CE6A'; 
+                
+                countdownDisplay.style.display = 'none';
+                redirectMessage.style.display = 'block';
+
+                // Redirect to the first wish page after 3 seconds
+                setTimeout(() => {
+                    window.location.href = REDIRECT_TARGET; 
+                }, 3000);
+            } else {
+                // Display the countdown in segmented format
+                countdownDisplay.innerHTML = `
+                    <div class="segment">
+                        <div class="segment-value">${days}</div>
+                        <div class="segment-label">Days</div>
+                    </div>
+                    <div class="segment">
+                        <div class="segment-value">${hours}</div>
+                        <div class="segment-label">Hours</div>
+                    </div>
+                    <div class="segment">
+                        <div class="segment-value">${minutes}</div>
+                        <div class="segment-label">Mins</div>
+                    </div>
+                    <div class="segment">
+                        <div class="segment-value">${seconds}</div>
+                        <div class="segment-label">Secs</div>
+                    </div>
+                `;
+            }
+        }
+
+        updateCountdown();
+        const countdownFunction = setInterval(updateCountdown, 1000);
+    </script>
 </body>
 </html>
