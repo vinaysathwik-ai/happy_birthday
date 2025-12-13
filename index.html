@@ -93,63 +93,73 @@
     </div>
 
     <script>
-        // Target Date: December 14, 2025, 12:00:00 AM
-        const targetDate = new Date("Dec 14, 2025 00:00:00").getTime();
-        
-        const countdownDisplay = document.getElementById('countdown-display');
-        const redirectMessage = document.getElementById('message');
-        
-        // This targets the first page of the wishes
-        const REDIRECT_TARGET = 'page2.html'; 
+       // Target Date: December 14, 2025, 12:00:00 AM 
+    const targetDate = new Date("Dec 14, 2025 00:00:00").getTime();
+    
+    const countdownDisplay = document.getElementById('countdown-display');
+    const redirectMessage = document.getElementById('message');
+    
+    const REDIRECT_TARGET = 'page2.html'; 
+    let countdownFunction; // Declare the interval variable outside
 
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
 
-            // Time calculations
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        // Time calculations
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            if (distance < 0) {
-                // Countdown Finished
-                clearInterval(countdownFunction);
-                document.body.style.backgroundColor = '#12CE6A'; 
-                
-                countdownDisplay.style.display = 'none';
-                redirectMessage.style.display = 'block';
+        if (distance < 0) {
+            // Countdown Finished
+            clearInterval(countdownFunction);
+            document.body.style.backgroundColor = '#12CE6A'; 
+            
+            countdownDisplay.style.display = 'none';
+            
+            // NEW MESSAGE: Instruct the user to click
+            redirectMessage.innerHTML = "Time's Up! **Click Anywhere to Continue**";
+            redirectMessage.style.display = 'block';
 
-                // Redirect to the first wish page after 3 seconds
-                setTimeout(() => {
-                    window.location.href = REDIRECT_TARGET; 
-                }, 3000);
-            } else {
-                // Display the countdown
-                countdownDisplay.innerHTML = `
-                    <div class="segment">
-                        <div class="segment-value">${days}</div>
-                        <div class="segment-label">Days</div>
-                    </div>
-                    <div class="segment">
-                        <div class="segment-value">${hours}</div>
-                        <div class="segment-label">Hours</div>
-                    </div>
-                    <div class="segment">
-                        <div class="segment-value">${minutes}</div>
-                        <div class="segment-label">Mins</div>
-                    </div>
-                    <div class="segment">
-                        <div class="segment-value">${seconds}</div>
-                        <div class="segment-label">Secs</div>
-                    </div>
-                `;
-            }
+            // ATTACH CLICK HANDLER TO THE BODY
+            document.body.onclick = function() {
+                window.location.href = REDIRECT_TARGET;
+            };
+
+            // Remove the automatic redirect
+            // setTimeout(() => {
+            //     window.location.href = REDIRECT_TARGET; 
+            // }, 3000);
+
+        } else {
+            // Display the countdown
+            countdownDisplay.innerHTML = `
+                <div class="segment">
+                    <div class="segment-value">${days}</div>
+                    <div class="segment-label">Days</div>
+                </div>
+                <div class="segment">
+                    <div class="segment-value">${hours}</div>
+                    <div class="segment-label">Hours</div>
+                </div>
+                <div class="segment">
+                    <div class="segment-value">${minutes}</div>
+                    <div class="segment-label">Mins</div>
+                </div>
+                <div class="segment">
+                    <div class="segment-value">${seconds}</div>
+                    <div class="segment-label">Secs</div>
+                </div>
+            `;
         }
+    }
 
-        updateCountdown();
-        const countdownFunction = setInterval(updateCountdown, 1000);
+    updateCountdown();
+    countdownFunction = setInterval(updateCountdown, 1000);
     </script>
 </body>
 </html>
+
 
